@@ -23,3 +23,9 @@ following files from https://github.com/raspberrypi/firmware/tree/master/boot
 - `start.elf`
 
 Insert the SD card into the Raspberry Pi and power on.
+
+### Acknowledgements
+
+- Thanks to https://github.com/dwelch67/raspberrypi for the basic GPIO examples and C boilerplate code
+
+- Thanks to https://github.com/PeterLemon/RaspberryPi for the PWM headphone jack audio output examples
