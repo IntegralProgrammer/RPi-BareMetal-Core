@@ -14,6 +14,13 @@
 #define GPLEV0 0x20200034
 #define GPLEV1 0x20200038
 
+#define GPAREN0 0x2020007C
+#define GPAREN1 0x20200080
+#define GPAFEN0 0x20200088
+#define GPAFEN1 0x2020008C
+#define GPEDS0 0x20200040
+#define GPEDS1 0x20200044
+
 #define INPUT 0x000
 #define OUTPUT 0x001
 #define GPIO_ALT_FUNCTION_0 0x004
@@ -29,3 +36,8 @@
 void pinMode(unsigned int pin, unsigned int mode);
 unsigned int digitalRead(unsigned int pin);
 void digitalWrite(unsigned int pin, unsigned int value);
+void detectAsyncRisingEdge(unsigned int pin);
+void detectAsyncFallingEdge(unsigned int pin);
+unsigned char eventDetected(unsigned int pin);
+void clearEvent(unsigned int pin);
+void waitForEvent(unsigned int pin);

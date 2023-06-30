@@ -70,3 +70,73 @@ void digitalWrite(unsigned int pin, unsigned int value)
         }
     }
 }
+
+void detectAsyncRisingEdge(unsigned int pin)
+{
+    unsigned int gparen_address;
+    unsigned int pin_offset;
+    if ((pin >= 0) && (pin <= 31)) {
+        gparen_address = GPAREN0;
+        pin_offset = 0;
+    } else if ((pin >= 32) && (pin <= 53)) {
+        gparen_address = GPAREN1;
+        pin_offset = 32;
+    } else {
+        return;
+    }
+    PUT32(gparen_address, 1 << (pin - pin_offset));
+}
+
+void detectAsyncFallingEdge(unsigned int pin)
+{
+    unsigned int gpafen_address;
+    unsigned int pin_offset;
+    if ((pin >= 0) && (pin <= 31)) {
+        gpafen_address = GPAFEN0;
+        pin_offset = 0;
+    } else if ((pin >= 32) && (pin <= 53)) {
+        gpafen_address = GPAFEN1;
+        pin_offset = 32;
+    } else {
+        return;
+    }
+    PUT32(gpafen_address, 1 << (pin - pin_offset));
+}
+
+unsigned char eventDetected(unsigned int pin)
+{
+    unsigned int gpeds_address;
+    unsigned int pin_offset;
+    if ((pin >= 0) && (pin <= 31)) {
+        gpeds_address = GPEDS0;
+        pin_offset = 0;
+    } else if ((pin >= 32) && (pin <= 53)) {
+        gpeds_address = GPEDS1;
+        pin_offset = 32;
+    } else {
+        return 0;
+    }
+    return (GET32(gpeds_address) >> (pin - pin_offset)) & 0x1;
+}
+
+void clearEvent(unsigned int pin)
+{
+    unsigned int gpeds_address;
+    unsigned int pin_offset;
+    if ((pin >= 0) && (pin <= 31)) {
+        gpeds_address = GPEDS0;
+        pin_offset = 0;
+    } else if ((pin >= 32) && (pin <= 53)) {
+        gpeds_address = GPEDS1;
+        pin_offset = 32;
+    } else {
+        return;
+    }
+    PUT32(gpeds_address, 1 << (pin - pin_offset));
+}
+
+void waitForEvent(unsigned int pin)
+{
+    while (eventDetected(pin) != 1) {}
+    clearEvent(pin);
+}
