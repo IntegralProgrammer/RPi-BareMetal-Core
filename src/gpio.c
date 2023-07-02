@@ -73,6 +73,7 @@ void digitalWrite(unsigned int pin, unsigned int value)
 
 void detectAsyncRisingEdge(unsigned int pin)
 {
+    unsigned int register_contents;
     unsigned int gparen_address;
     unsigned int pin_offset;
     if ((pin >= 0) && (pin <= 31)) {
@@ -84,11 +85,13 @@ void detectAsyncRisingEdge(unsigned int pin)
     } else {
         return;
     }
-    PUT32(gparen_address, 1 << (pin - pin_offset));
+    register_contents = GET32(gparen_address);
+    PUT32(gparen_address, register_contents | (1 << (pin - pin_offset)));
 }
 
 void detectAsyncFallingEdge(unsigned int pin)
 {
+    unsigned int register_contents;
     unsigned int gpafen_address;
     unsigned int pin_offset;
     if ((pin >= 0) && (pin <= 31)) {
@@ -100,7 +103,8 @@ void detectAsyncFallingEdge(unsigned int pin)
     } else {
         return;
     }
-    PUT32(gpafen_address, 1 << (pin - pin_offset));
+    register_contents = GET32(gpafen_address);
+    PUT32(gpafen_address, register_contents | (1 << (pin - pin_offset)));
 }
 
 unsigned char eventDetected(unsigned int pin)
