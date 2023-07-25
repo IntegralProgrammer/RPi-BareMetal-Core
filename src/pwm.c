@@ -28,3 +28,7 @@ unsigned char pwmOutputReady() {
 void pwmOutputWrite(unsigned int value) {
     PUT32(PWM_FIF1, value);
 }
+
+void pwmDirectOutputWrite(unsigned int value) {
+    PUT32(PWM_DAT1, value);
+}

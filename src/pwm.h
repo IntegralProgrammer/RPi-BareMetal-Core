@@ -3,6 +3,7 @@
 
 #define PWM_CTL 0x2020C000
 
+#define PWM_DAT1 0x2020C014
 #define PWM_FIF1 0x2020C018
 #define PWM_STA 0x2020C004
 
@@ -18,3 +19,4 @@ void setPwmRange(unsigned int, unsigned int);
 void setPwmControlFlags(unsigned int);
 unsigned char pwmOutputReady();
 void pwmOutputWrite(unsigned int);
+void pwmDirectOutputWrite(unsigned int);
