@@ -1,0 +1,10 @@
+#define MAILBOX_READ_REGISTER 0x2000B880
+#define MAILBOX_STATUS_REGISTER 0x2000B898
+#define MAILBOX_WRITE_REGISTER 0x2000B8A0
+#define MASK_MAILBOX_FULL 0x80000000
+#define MASK_MAILBOX_EMPTY 0x40000000
+#define MASK_MAILBOX_CHANNEL 0x0F
+#define MASK_MAILBOX_DATA 0xFFFFFFF0
+
+void mailboxWrite(unsigned int, unsigned char);
+unsigned int mailboxRead(unsigned char);
