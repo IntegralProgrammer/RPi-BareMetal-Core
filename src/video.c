@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include "mailbox.h"
 #include "video.h"
+#include "graphics_canvas.h"
 
 extern void PUT32(unsigned int, unsigned int);
 
@@ -58,4 +59,18 @@ void setPixel_generic(void* pixels, unsigned int width, unsigned int height, uns
     pixel_ptr += 4 * x;
 
     PUT32(pixel_ptr, pixel);
+}
+
+graphicsCanvas getGraphicsCanvas_generic(void* pixels, unsigned int width, unsigned int height)
+{
+    graphicsCanvas gc;
+    gc.pixels = pixels;
+    gc.width = width;
+    gc.height = height;
+    return gc;
+}
+
+void setPixelGraphicsCanvas(graphicsCanvas gc, unsigned int x, unsigned int y, unsigned char r, unsigned char g, unsigned char b)
+{
+    setPixel_generic(gc.pixels, gc.width, gc.height, x, y, r, g, b);
 }
