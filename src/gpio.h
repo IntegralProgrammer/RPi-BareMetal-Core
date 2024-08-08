@@ -20,6 +20,9 @@
 #define GPAFEN1 0x2020008C
 #define GPEDS0 0x20200040
 #define GPEDS1 0x20200044
+#define GPPUD 0x20200094
+#define GPPUDCLK0 0x20200098
+#define GPPUDCLK1 0x2020009C
 
 #define INPUT 0x000
 #define OUTPUT 0x001
@@ -30,10 +33,19 @@
 #define GPIO_ALT_FUNCTION_4 0x003
 #define GPIO_ALT_FUNCTION_5 0x002
 
+#define MASK_GPIO_ENABLE_PULL_DOWN 0x01
+#define MASK_GPIO_ENABLE_PULL_UP 0x02
+
 #define HIGH 1
 #define LOW 0
 
+#define PULL_UP_DOWN_DISABLED 0
+#define PULL_DOWN_ENABLED 1
+#define PULL_UP_ENABLED 2
+
+
 void pinMode(unsigned int pin, unsigned int mode);
+void setPullUpDown(unsigned int pin, unsigned int mode);
 unsigned int digitalRead(unsigned int pin);
 void digitalWrite(unsigned int pin, unsigned int value);
 void detectAsyncRisingEdge(unsigned int pin);

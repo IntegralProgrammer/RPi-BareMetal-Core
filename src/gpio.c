@@ -1,5 +1,6 @@
 #include "gpio.h"
 
+extern void PASS();
 extern void PUT32(unsigned int, unsigned int);
 extern unsigned int GET32(unsigned int);
 
@@ -33,6 +34,55 @@ void pinMode(unsigned int pin, unsigned int mode)
     register_contents &= ~(7 << (3*(pin - pin_offset)));
     register_contents |= (mode << (3*(pin - pin_offset)));
     PUT32(gpfsel_address, register_contents);
+}
+
+void setPullUpDown(unsigned int pin, unsigned int mode)
+{
+  unsigned int gppudclk_address;
+  unsigned int pin_offset;
+
+  if (pin > 53) {
+    return;
+  }
+
+  // Write to GPPUD register
+  if (mode == PULL_UP_DOWN_DISABLED) {
+    PUT32(GPPUD, 0x00);
+  } else if (mode == PULL_DOWN_ENABLED) {
+    PUT32(GPPUD, MASK_GPIO_ENABLE_PULL_DOWN);
+  } else if (mode == PULL_UP_ENABLED) {
+    PUT32(GPPUD, MASK_GPIO_ENABLE_PULL_UP);
+  } else {
+    return;
+  }
+
+  // Wait 150 clock cycles
+  for (unsigned char i = 0; i < 150; i++) {
+    PASS();
+  }
+
+  // Write to the GPPUDCLK0/1 register
+  if ((pin >= 0) && (pin <= 31)) {
+    gppudclk_address = GPPUDCLK0;
+    pin_offset = 0;
+  } else if ((pin >= 32) && (pin <= 53)) {
+    gppudclk_address = GPPUDCLK1;
+    pin_offset = 32;
+  } else {
+    return;
+  }
+  PUT32(gppudclk_address, 1 << (pin - pin_offset));
+
+  // Wait 150 clock cycles
+  for (unsigned char i = 0; i < 150; i++) {
+    PASS();
+  }
+
+  // Clear the GPPUD register
+  PUT32(GPPUD, 0x00);
+
+  // Remove the GPPUDCLK clock
+  PUT32(gppudclk_address, 0x00);
 }
 
 unsigned int digitalRead(unsigned int pin)
