@@ -24,6 +24,11 @@ void spiInit()
   PUT32(AUX_SPI0_CLK_REGISTER, 0x00);
 }
 
+void spiSetClockDivisor(unsigned int clockDivisor)
+{
+  PUT32(AUX_SPI0_CLK_REGISTER, clockDivisor);
+}
+
 void spiBeginTransaction()
 {
   // Clear RX/TX buffers and set TRANSFER_ACTIVE

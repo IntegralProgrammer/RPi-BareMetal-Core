@@ -11,6 +11,7 @@
 #define MASK_SPI_TXD 0x40000
 
 void spiInit();
+void spiSetClockDivisor(unsigned int);
 void spiBeginTransaction();
 unsigned char spiTransfer(unsigned char);
 void spiEndTransaction();
