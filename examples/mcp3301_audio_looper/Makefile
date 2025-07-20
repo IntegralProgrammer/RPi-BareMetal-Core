@@ -33,12 +33,15 @@ looper.o: ../../lib/dsp/sound_effects/looper.c
 debounce.o: ../../lib/debounce/debounce.c
 	$(ARMGNU)-gcc $(COPS) -c ../../lib/debounce/debounce.c -o debounce.o
 
+mcp3301.o: ../../lib/drivers/adc/mcp3301.c
+	$(ARMGNU)-gcc $(COPS) -c ../../lib/drivers/adc/mcp3301.c -o mcp3301.o
+
 notmain.o : ../../src/notmain.c
 	$(ARMGNU)-gcc $(COPS) -c ../../src/notmain.c -o notmain.o
 
 sketch.o : sketch.c
 	$(ARMGNU)-gcc $(COPS) -c sketch.c -o sketch.o
 
-kernel.img : ../../src/memmap start.o gpio.o clock.o pwm.o headphonejack.o spi.o timer.o looper.o debounce.o notmain.o sketch.o
-	$(ARMGNU)-ld start.o gpio.o clock.o pwm.o headphonejack.o spi.o timer.o looper.o debounce.o notmain.o sketch.o -T ../../src/memmap -o kernel.elf
+kernel.img : ../../src/memmap start.o gpio.o clock.o pwm.o headphonejack.o spi.o timer.o looper.o debounce.o mcp3301.o notmain.o sketch.o
+	$(ARMGNU)-ld start.o gpio.o clock.o pwm.o headphonejack.o spi.o timer.o looper.o debounce.o mcp3301.o notmain.o sketch.o -T ../../src/memmap -o kernel.elf
 	$(ARMGNU)-objcopy kernel.elf -O binary kernel.img
