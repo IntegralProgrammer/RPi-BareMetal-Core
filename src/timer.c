@@ -9,3 +9,11 @@ extern unsigned int GET32(unsigned int);
 unsigned int micros() {
   return GET32(CLO);
 }
+
+/*
+ * Wait for t microseconds, then continue
+ */
+void delayUS(unsigned int t) {
+  unsigned int start_time = micros();
+  while ((micros() - start_time) < t) {}
+}
