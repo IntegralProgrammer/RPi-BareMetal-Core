@@ -29,3 +29,5 @@ Insert the SD card into the Raspberry Pi and power on.
 - Thanks to https://github.com/dwelch67/raspberrypi for the basic examples (GPIO, UART, video) and C boilerplate code
 
 - Thanks to https://github.com/PeterLemon/RaspberryPi for the PWM headphone jack audio output examples
+
+- Thanks to https://github.com/bztsrc/raspi3-tutorial for the SD card I/O examples
