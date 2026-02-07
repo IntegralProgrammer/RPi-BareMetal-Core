@@ -157,6 +157,42 @@ void detectAsyncFallingEdge(unsigned int pin)
     PUT32(gpafen_address, register_contents | (1 << (pin - pin_offset)));
 }
 
+void detectGpioHigh(unsigned int pin)
+{
+    unsigned int register_contents;
+    unsigned int gphen_address;
+    unsigned int pin_offset;
+    if ((pin >= 0) && (pin <= 31)) {
+        gphen_address = GPHEN0;
+        pin_offset = 0;
+    } else if ((pin >= 32) && (pin <= 53)) {
+        gphen_address = GPHEN1;
+        pin_offset = 32;
+    } else {
+        return;
+    }
+    register_contents = GET32(gphen_address);
+    PUT32(gphen_address, register_contents | (1 << (pin - pin_offset)));
+}
+
+void detectGpioLow(unsigned int pin)
+{
+    unsigned int register_contents;
+    unsigned int gplen_address;
+    unsigned int pin_offset;
+    if ((pin >= 0) && (pin <= 31)) {
+        gplen_address = GPLEN0;
+        pin_offset = 0;
+    } else if ((pin >= 32) && (pin <= 53)) {
+        gplen_address = GPLEN1;
+        pin_offset = 32;
+    } else {
+        return;
+    }
+    register_contents = GET32(gplen_address);
+    PUT32(gplen_address, register_contents | (1 << (pin - pin_offset)));
+}
+
 unsigned char eventDetected(unsigned int pin)
 {
     unsigned int gpeds_address;

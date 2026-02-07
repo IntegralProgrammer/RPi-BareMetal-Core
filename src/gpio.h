@@ -14,6 +14,10 @@
 #define GPLEV0 0x20200034
 #define GPLEV1 0x20200038
 
+#define GPHEN0 0x20200064
+#define GPHEN1 0x20200068
+#define GPLEN0 0x20200070
+#define GPLEN1 0x20200074
 #define GPAREN0 0x2020007C
 #define GPAREN1 0x20200080
 #define GPAFEN0 0x20200088
@@ -50,6 +54,8 @@ unsigned int digitalRead(unsigned int pin);
 void digitalWrite(unsigned int pin, unsigned int value);
 void detectAsyncRisingEdge(unsigned int pin);
 void detectAsyncFallingEdge(unsigned int pin);
+void detectGpioHigh(unsigned int pin);
+void detectGpioLow(unsigned int pin);
 unsigned char eventDetected(unsigned int pin);
 void clearEvent(unsigned int pin);
 void waitForEvent(unsigned int pin);
