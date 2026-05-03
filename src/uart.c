@@ -7,8 +7,14 @@ extern void PUT32(unsigned int, unsigned int);
 
 unsigned int lookupBaudRegValue(unsigned int baudrate)
 {
-  // Currently only supporting 115200 for now
   // Value is calculated as (SYSCLK_FREQ / (8 * baudrate)) - 1;
+
+  // MIDI
+  if (baudrate == 31250) {
+    return 999;
+  }
+
+  // Default to using a baud rate of 115200
   return 270;
 }
 
