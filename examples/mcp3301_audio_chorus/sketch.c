@@ -128,6 +128,6 @@ void loop()
   // Wait if necessary to ensure that this loop doesn't run any faster than 44.1 kHz
   while ((micros() - loopStartTime) < LOOP_PERIOD_US) {}
 
-  // Send the processed sample to the headphone jack mixed with the input sample at the set ratio
+  // Send the processed sample to the headphone jack
   headphoneDirectOutputWriteSigned(outputSample);
 }

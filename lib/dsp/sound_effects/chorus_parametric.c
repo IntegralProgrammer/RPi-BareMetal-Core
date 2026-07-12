@@ -75,14 +75,14 @@ int processChorusParametric(DSPChorusParametric* dspCtx, int sample) {
 }
 
 /*
- * Set the base delay to `delay` samples
+ * Set the base delay to `delay` thousandths of a sample
  */
 void setChorusParametricBaseDelay(DSPChorusParametric* dspCtx, unsigned int delay) {
 	dspCtx->base_delay = delay;
 }
 
 /*
- * Set the depth of the delay variation to `depth` samples
+ * Set the depth of the delay variation to `depth` thousandths of a sample
  */
 void setChorusParametricDepth(DSPChorusParametric* dspCtx, unsigned int depth) {
 	dspCtx->depth = depth;
